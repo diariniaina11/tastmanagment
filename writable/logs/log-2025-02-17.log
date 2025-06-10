@@ -1,0 +1,24 @@
+ERROR - 2025-02-17 10:38:32 --> Error connecting to the database: Error: Call to undefined function CodeIgniter\Database\Postgre\pg_connect() in /home/diariniaina/projects/codeigniter/firststep/system/Database/Postgre/Connection.php:78
+Stack trace:
+#0 /home/diariniaina/projects/codeigniter/firststep/system/Database/BaseConnection.php(421): CodeIgniter\Database\Postgre\Connection->connect(false)
+#1 /home/diariniaina/projects/codeigniter/firststep/system/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/diariniaina/projects/codeigniter/firststep/app/Controllers/ApiController.php(16): CodeIgniter\Database\BaseConnection->query('SELECT * FROM u...')
+#3 /home/diariniaina/projects/codeigniter/firststep/system/CodeIgniter.php(933): App\Controllers\ApiController->index()
+#4 /home/diariniaina/projects/codeigniter/firststep/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ApiController))
+#5 /home/diariniaina/projects/codeigniter/firststep/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 /home/diariniaina/projects/codeigniter/firststep/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#7 /home/diariniaina/projects/codeigniter/firststep/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#8 /home/diariniaina/projects/codeigniter/firststep/public/index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#9 {main}
+CRITICAL - 2025-02-17 10:38:32 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+Main connection [Postgre]: Call to undefined function CodeIgniter\Database\Postgre\pg_connect()
+[Method: GET, Route: api]
+in SYSTEMPATH/Database/BaseConnection.php on line 467.
+ 1 SYSTEMPATH/Database/BaseConnection.php(620): CodeIgniter\Database\BaseConnection->initialize()
+ 2 APPPATH/Controllers/ApiController.php(16): CodeIgniter\Database\BaseConnection->query('SELECT * FROM users')
+ 3 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->index()
+ 4 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ApiController))
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

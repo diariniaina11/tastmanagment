@@ -1,0 +1,480 @@
+ERROR - 2025-02-16 06:36:13 --> ErrorException: pg_query(): Query failed: ERREUR:  la valeur d'une clé dupliquée rompt la contrainte unique « users_email_key »
+DETAIL:  La clé « (email)=(john@example.com) » existe déjà. in /home/diariniaina/projects/codeigniter/firststep/system/Database/Postgre/Connection.php:206
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler()
+#1 /home/diariniaina/projects/codeigniter/firststep/system/Database/Postgre/Connection.php(206): pg_query()
+#2 /home/diariniaina/projects/codeigniter/firststep/system/Database/BaseConnection.php(738): CodeIgniter\Database\Postgre\Connection->execute()
+#3 /home/diariniaina/projects/codeigniter/firststep/system/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+#4 /home/diariniaina/projects/codeigniter/firststep/system/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+#5 /home/diariniaina/projects/codeigniter/firststep/app/Controllers/ApiController.php(45): CodeIgniter\Database\BaseBuilder->insert()
+#6 /home/diariniaina/projects/codeigniter/firststep/system/CodeIgniter.php(933): App\Controllers\ApiController->create()
+#7 /home/diariniaina/projects/codeigniter/firststep/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#8 /home/diariniaina/projects/codeigniter/firststep/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/diariniaina/projects/codeigniter/firststep/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 /home/diariniaina/projects/codeigniter/firststep/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/diariniaina/projects/codeigniter/firststep/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#12 /home/diariniaina/projects/codeigniter/firststep/system/rewrite.php(44): require_once('...')
+#13 {main}
+CRITICAL - 2025-02-16 06:36:13 --> CodeIgniter\Database\Exceptions\DatabaseException: pg_query(): Query failed: ERREUR:  la valeur d'une clé dupliquée rompt la contrainte unique « users_email_key »
+DETAIL:  La clé « (email)=(john@example.com) » existe déjà.
+[Method: POST, Route: api]
+in SYSTEMPATH/Database/BaseConnection.php on line 692.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 2 APPPATH/Controllers/ApiController.php(45): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->create()
+ 4 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/diariniaina/projects/codeigniter/firststep/public/index.php')
+CRITICAL - 2025-02-16 06:36:13 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: pg_query(): Query failed: ERREUR:  la valeur d'une clé dupliquée rompt la contrainte unique « users_email_key »
+DETAIL:  La clé « (email)=(john@example.com) » existe déjà.
+in SYSTEMPATH/Database/Postgre/Connection.php on line 211.
+ 1 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\Postgre\Connection->execute()
+ 2 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 4 APPPATH/Controllers/ApiController.php(45): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->create()
+ 6 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/diariniaina/projects/codeigniter/firststep/public/index.php')
+CRITICAL - 2025-02-16 06:36:13 --> [Caused by] ErrorException: pg_query(): Query failed: ERREUR:  la valeur d'une clé dupliquée rompt la contrainte unique « users_email_key »
+DETAIL:  La clé « (email)=(john@example.com) » existe déjà.
+in SYSTEMPATH/Database/Postgre/Connection.php on line 206.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/Database/Postgre/Connection.php(206): pg_query()
+ 3 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\Postgre\Connection->execute()
+ 4 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 5 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 6 APPPATH/Controllers/ApiController.php(45): CodeIgniter\Database\BaseBuilder->insert()
+ 7 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->create()
+ 8 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+13 SYSTEMPATH/rewrite.php(44): require_once('/home/diariniaina/projects/codeigniter/firststep/public/index.php')
+ERROR - 2025-02-16 06:41:21 --> ErrorException: pg_query(): Query failed: ERREUR:  la valeur d'une clé dupliquée rompt la contrainte unique « users_email_key »
+DETAIL:  La clé « (email)=(john@example.com) » existe déjà. in /home/diariniaina/projects/codeigniter/firststep/system/Database/Postgre/Connection.php:206
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler()
+#1 /home/diariniaina/projects/codeigniter/firststep/system/Database/Postgre/Connection.php(206): pg_query()
+#2 /home/diariniaina/projects/codeigniter/firststep/system/Database/BaseConnection.php(738): CodeIgniter\Database\Postgre\Connection->execute()
+#3 /home/diariniaina/projects/codeigniter/firststep/system/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+#4 /home/diariniaina/projects/codeigniter/firststep/system/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+#5 /home/diariniaina/projects/codeigniter/firststep/app/Controllers/ApiController.php(45): CodeIgniter\Database\BaseBuilder->insert()
+#6 /home/diariniaina/projects/codeigniter/firststep/system/CodeIgniter.php(933): App\Controllers\ApiController->create()
+#7 /home/diariniaina/projects/codeigniter/firststep/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#8 /home/diariniaina/projects/codeigniter/firststep/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/diariniaina/projects/codeigniter/firststep/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 /home/diariniaina/projects/codeigniter/firststep/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/diariniaina/projects/codeigniter/firststep/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#12 /home/diariniaina/projects/codeigniter/firststep/system/rewrite.php(44): require_once('...')
+#13 {main}
+CRITICAL - 2025-02-16 06:41:21 --> CodeIgniter\Database\Exceptions\DatabaseException: pg_query(): Query failed: ERREUR:  la valeur d'une clé dupliquée rompt la contrainte unique « users_email_key »
+DETAIL:  La clé « (email)=(john@example.com) » existe déjà.
+[Method: POST, Route: api]
+in SYSTEMPATH/Database/BaseConnection.php on line 692.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 2 APPPATH/Controllers/ApiController.php(45): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->create()
+ 4 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/diariniaina/projects/codeigniter/firststep/public/index.php')
+CRITICAL - 2025-02-16 06:41:21 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: pg_query(): Query failed: ERREUR:  la valeur d'une clé dupliquée rompt la contrainte unique « users_email_key »
+DETAIL:  La clé « (email)=(john@example.com) » existe déjà.
+in SYSTEMPATH/Database/Postgre/Connection.php on line 211.
+ 1 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\Postgre\Connection->execute()
+ 2 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 4 APPPATH/Controllers/ApiController.php(45): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->create()
+ 6 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/diariniaina/projects/codeigniter/firststep/public/index.php')
+CRITICAL - 2025-02-16 06:41:21 --> [Caused by] ErrorException: pg_query(): Query failed: ERREUR:  la valeur d'une clé dupliquée rompt la contrainte unique « users_email_key »
+DETAIL:  La clé « (email)=(john@example.com) » existe déjà.
+in SYSTEMPATH/Database/Postgre/Connection.php on line 206.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/Database/Postgre/Connection.php(206): pg_query()
+ 3 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\Postgre\Connection->execute()
+ 4 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 5 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 6 APPPATH/Controllers/ApiController.php(45): CodeIgniter\Database\BaseBuilder->insert()
+ 7 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->create()
+ 8 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+13 SYSTEMPATH/rewrite.php(44): require_once('/home/diariniaina/projects/codeigniter/firststep/public/index.php')
+ERROR - 2025-02-16 06:42:17 --> ErrorException: pg_query(): Query failed: ERREUR:  une valeur NULL viole la contrainte NOT NULL de la colonne « name »
+DETAIL:  La ligne en échec contient (4, null, john@example.com, 2025-02-16 09:42:17.952327) in /home/diariniaina/projects/codeigniter/firststep/system/Database/Postgre/Connection.php:206
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler()
+#1 /home/diariniaina/projects/codeigniter/firststep/system/Database/Postgre/Connection.php(206): pg_query()
+#2 /home/diariniaina/projects/codeigniter/firststep/system/Database/BaseConnection.php(738): CodeIgniter\Database\Postgre\Connection->execute()
+#3 /home/diariniaina/projects/codeigniter/firststep/system/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+#4 /home/diariniaina/projects/codeigniter/firststep/system/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+#5 /home/diariniaina/projects/codeigniter/firststep/app/Controllers/ApiController.php(45): CodeIgniter\Database\BaseBuilder->insert()
+#6 /home/diariniaina/projects/codeigniter/firststep/system/CodeIgniter.php(933): App\Controllers\ApiController->create()
+#7 /home/diariniaina/projects/codeigniter/firststep/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#8 /home/diariniaina/projects/codeigniter/firststep/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/diariniaina/projects/codeigniter/firststep/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 /home/diariniaina/projects/codeigniter/firststep/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/diariniaina/projects/codeigniter/firststep/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#12 /home/diariniaina/projects/codeigniter/firststep/system/rewrite.php(44): require_once('...')
+#13 {main}
+CRITICAL - 2025-02-16 06:42:17 --> CodeIgniter\Database\Exceptions\DatabaseException: pg_query(): Query failed: ERREUR:  une valeur NULL viole la contrainte NOT NULL de la colonne « name »
+DETAIL:  La ligne en échec contient (4, null, john@example.com, 2025-02-16 09:42:17.952327)
+[Method: POST, Route: api]
+in SYSTEMPATH/Database/BaseConnection.php on line 692.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 2 APPPATH/Controllers/ApiController.php(45): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->create()
+ 4 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/diariniaina/projects/codeigniter/firststep/public/index.php')
+CRITICAL - 2025-02-16 06:42:17 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: pg_query(): Query failed: ERREUR:  une valeur NULL viole la contrainte NOT NULL de la colonne « name »
+DETAIL:  La ligne en échec contient (4, null, john@example.com, 2025-02-16 09:42:17.952327)
+in SYSTEMPATH/Database/Postgre/Connection.php on line 211.
+ 1 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\Postgre\Connection->execute()
+ 2 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 4 APPPATH/Controllers/ApiController.php(45): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->create()
+ 6 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/diariniaina/projects/codeigniter/firststep/public/index.php')
+CRITICAL - 2025-02-16 06:42:17 --> [Caused by] ErrorException: pg_query(): Query failed: ERREUR:  une valeur NULL viole la contrainte NOT NULL de la colonne « name »
+DETAIL:  La ligne en échec contient (4, null, john@example.com, 2025-02-16 09:42:17.952327)
+in SYSTEMPATH/Database/Postgre/Connection.php on line 206.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/Database/Postgre/Connection.php(206): pg_query()
+ 3 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\Postgre\Connection->execute()
+ 4 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 5 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 6 APPPATH/Controllers/ApiController.php(45): CodeIgniter\Database\BaseBuilder->insert()
+ 7 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->create()
+ 8 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+13 SYSTEMPATH/rewrite.php(44): require_once('/home/diariniaina/projects/codeigniter/firststep/public/index.php')
+ERROR - 2025-02-16 06:42:56 --> ErrorException: pg_query(): Query failed: ERREUR:  la valeur d'une clé dupliquée rompt la contrainte unique « users_email_key »
+DETAIL:  La clé « (email)=(john@example.com) » existe déjà. in /home/diariniaina/projects/codeigniter/firststep/system/Database/Postgre/Connection.php:206
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler()
+#1 /home/diariniaina/projects/codeigniter/firststep/system/Database/Postgre/Connection.php(206): pg_query()
+#2 /home/diariniaina/projects/codeigniter/firststep/system/Database/BaseConnection.php(738): CodeIgniter\Database\Postgre\Connection->execute()
+#3 /home/diariniaina/projects/codeigniter/firststep/system/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+#4 /home/diariniaina/projects/codeigniter/firststep/system/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+#5 /home/diariniaina/projects/codeigniter/firststep/app/Controllers/ApiController.php(45): CodeIgniter\Database\BaseBuilder->insert()
+#6 /home/diariniaina/projects/codeigniter/firststep/system/CodeIgniter.php(933): App\Controllers\ApiController->create()
+#7 /home/diariniaina/projects/codeigniter/firststep/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#8 /home/diariniaina/projects/codeigniter/firststep/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/diariniaina/projects/codeigniter/firststep/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 /home/diariniaina/projects/codeigniter/firststep/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/diariniaina/projects/codeigniter/firststep/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#12 /home/diariniaina/projects/codeigniter/firststep/system/rewrite.php(44): require_once('...')
+#13 {main}
+CRITICAL - 2025-02-16 06:42:56 --> CodeIgniter\Database\Exceptions\DatabaseException: pg_query(): Query failed: ERREUR:  la valeur d'une clé dupliquée rompt la contrainte unique « users_email_key »
+DETAIL:  La clé « (email)=(john@example.com) » existe déjà.
+[Method: POST, Route: api]
+in SYSTEMPATH/Database/BaseConnection.php on line 692.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 2 APPPATH/Controllers/ApiController.php(45): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->create()
+ 4 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/diariniaina/projects/codeigniter/firststep/public/index.php')
+CRITICAL - 2025-02-16 06:42:56 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: pg_query(): Query failed: ERREUR:  la valeur d'une clé dupliquée rompt la contrainte unique « users_email_key »
+DETAIL:  La clé « (email)=(john@example.com) » existe déjà.
+in SYSTEMPATH/Database/Postgre/Connection.php on line 211.
+ 1 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\Postgre\Connection->execute()
+ 2 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 4 APPPATH/Controllers/ApiController.php(45): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->create()
+ 6 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/diariniaina/projects/codeigniter/firststep/public/index.php')
+CRITICAL - 2025-02-16 06:42:56 --> [Caused by] ErrorException: pg_query(): Query failed: ERREUR:  la valeur d'une clé dupliquée rompt la contrainte unique « users_email_key »
+DETAIL:  La clé « (email)=(john@example.com) » existe déjà.
+in SYSTEMPATH/Database/Postgre/Connection.php on line 206.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/Database/Postgre/Connection.php(206): pg_query()
+ 3 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\Postgre\Connection->execute()
+ 4 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 5 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 6 APPPATH/Controllers/ApiController.php(45): CodeIgniter\Database\BaseBuilder->insert()
+ 7 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->create()
+ 8 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+13 SYSTEMPATH/rewrite.php(44): require_once('/home/diariniaina/projects/codeigniter/firststep/public/index.php')
+ERROR - 2025-02-16 06:43:33 --> ErrorException: pg_query(): Query failed: ERREUR:  une valeur NULL viole la contrainte NOT NULL de la colonne « name »
+DETAIL:  La ligne en échec contient (6, null, john@example.com, 2025-02-16 09:43:33.991516) in /home/diariniaina/projects/codeigniter/firststep/system/Database/Postgre/Connection.php:206
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler()
+#1 /home/diariniaina/projects/codeigniter/firststep/system/Database/Postgre/Connection.php(206): pg_query()
+#2 /home/diariniaina/projects/codeigniter/firststep/system/Database/BaseConnection.php(738): CodeIgniter\Database\Postgre\Connection->execute()
+#3 /home/diariniaina/projects/codeigniter/firststep/system/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+#4 /home/diariniaina/projects/codeigniter/firststep/system/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+#5 /home/diariniaina/projects/codeigniter/firststep/app/Controllers/ApiController.php(45): CodeIgniter\Database\BaseBuilder->insert()
+#6 /home/diariniaina/projects/codeigniter/firststep/system/CodeIgniter.php(933): App\Controllers\ApiController->create()
+#7 /home/diariniaina/projects/codeigniter/firststep/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#8 /home/diariniaina/projects/codeigniter/firststep/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/diariniaina/projects/codeigniter/firststep/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 /home/diariniaina/projects/codeigniter/firststep/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/diariniaina/projects/codeigniter/firststep/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#12 /home/diariniaina/projects/codeigniter/firststep/system/rewrite.php(44): require_once('...')
+#13 {main}
+CRITICAL - 2025-02-16 06:43:33 --> CodeIgniter\Database\Exceptions\DatabaseException: pg_query(): Query failed: ERREUR:  une valeur NULL viole la contrainte NOT NULL de la colonne « name »
+DETAIL:  La ligne en échec contient (6, null, john@example.com, 2025-02-16 09:43:33.991516)
+[Method: POST, Route: api]
+in SYSTEMPATH/Database/BaseConnection.php on line 692.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 2 APPPATH/Controllers/ApiController.php(45): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->create()
+ 4 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/diariniaina/projects/codeigniter/firststep/public/index.php')
+CRITICAL - 2025-02-16 06:43:33 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: pg_query(): Query failed: ERREUR:  une valeur NULL viole la contrainte NOT NULL de la colonne « name »
+DETAIL:  La ligne en échec contient (6, null, john@example.com, 2025-02-16 09:43:33.991516)
+in SYSTEMPATH/Database/Postgre/Connection.php on line 211.
+ 1 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\Postgre\Connection->execute()
+ 2 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 4 APPPATH/Controllers/ApiController.php(45): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->create()
+ 6 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/diariniaina/projects/codeigniter/firststep/public/index.php')
+CRITICAL - 2025-02-16 06:43:33 --> [Caused by] ErrorException: pg_query(): Query failed: ERREUR:  une valeur NULL viole la contrainte NOT NULL de la colonne « name »
+DETAIL:  La ligne en échec contient (6, null, john@example.com, 2025-02-16 09:43:33.991516)
+in SYSTEMPATH/Database/Postgre/Connection.php on line 206.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/Database/Postgre/Connection.php(206): pg_query()
+ 3 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\Postgre\Connection->execute()
+ 4 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 5 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 6 APPPATH/Controllers/ApiController.php(45): CodeIgniter\Database\BaseBuilder->insert()
+ 7 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->create()
+ 8 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+13 SYSTEMPATH/rewrite.php(44): require_once('/home/diariniaina/projects/codeigniter/firststep/public/index.php')
+ERROR - 2025-02-16 06:44:53 --> ErrorException: pg_query(): Query failed: ERREUR:  une valeur NULL viole la contrainte NOT NULL de la colonne « name »
+DETAIL:  La ligne en échec contient (7, null, john@example.com, 2025-02-16 09:44:53.51298) in /home/diariniaina/projects/codeigniter/firststep/system/Database/Postgre/Connection.php:206
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler()
+#1 /home/diariniaina/projects/codeigniter/firststep/system/Database/Postgre/Connection.php(206): pg_query()
+#2 /home/diariniaina/projects/codeigniter/firststep/system/Database/BaseConnection.php(738): CodeIgniter\Database\Postgre\Connection->execute()
+#3 /home/diariniaina/projects/codeigniter/firststep/system/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+#4 /home/diariniaina/projects/codeigniter/firststep/system/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+#5 /home/diariniaina/projects/codeigniter/firststep/app/Controllers/ApiController.php(45): CodeIgniter\Database\BaseBuilder->insert()
+#6 /home/diariniaina/projects/codeigniter/firststep/system/CodeIgniter.php(933): App\Controllers\ApiController->create()
+#7 /home/diariniaina/projects/codeigniter/firststep/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#8 /home/diariniaina/projects/codeigniter/firststep/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/diariniaina/projects/codeigniter/firststep/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 /home/diariniaina/projects/codeigniter/firststep/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/diariniaina/projects/codeigniter/firststep/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#12 /home/diariniaina/projects/codeigniter/firststep/system/rewrite.php(44): require_once('...')
+#13 {main}
+CRITICAL - 2025-02-16 06:44:53 --> CodeIgniter\Database\Exceptions\DatabaseException: pg_query(): Query failed: ERREUR:  une valeur NULL viole la contrainte NOT NULL de la colonne « name »
+DETAIL:  La ligne en échec contient (7, null, john@example.com, 2025-02-16 09:44:53.51298)
+[Method: POST, Route: api]
+in SYSTEMPATH/Database/BaseConnection.php on line 692.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 2 APPPATH/Controllers/ApiController.php(45): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->create()
+ 4 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/diariniaina/projects/codeigniter/firststep/public/index.php')
+CRITICAL - 2025-02-16 06:44:53 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: pg_query(): Query failed: ERREUR:  une valeur NULL viole la contrainte NOT NULL de la colonne « name »
+DETAIL:  La ligne en échec contient (7, null, john@example.com, 2025-02-16 09:44:53.51298)
+in SYSTEMPATH/Database/Postgre/Connection.php on line 211.
+ 1 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\Postgre\Connection->execute()
+ 2 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 4 APPPATH/Controllers/ApiController.php(45): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->create()
+ 6 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/diariniaina/projects/codeigniter/firststep/public/index.php')
+CRITICAL - 2025-02-16 06:44:53 --> [Caused by] ErrorException: pg_query(): Query failed: ERREUR:  une valeur NULL viole la contrainte NOT NULL de la colonne « name »
+DETAIL:  La ligne en échec contient (7, null, john@example.com, 2025-02-16 09:44:53.51298)
+in SYSTEMPATH/Database/Postgre/Connection.php on line 206.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/Database/Postgre/Connection.php(206): pg_query()
+ 3 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\Postgre\Connection->execute()
+ 4 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 5 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 6 APPPATH/Controllers/ApiController.php(45): CodeIgniter\Database\BaseBuilder->insert()
+ 7 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->create()
+ 8 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+13 SYSTEMPATH/rewrite.php(44): require_once('/home/diariniaina/projects/codeigniter/firststep/public/index.php')
+ERROR - 2025-02-16 06:45:59 --> ErrorException: pg_query(): Query failed: ERREUR:  la valeur d'une clé dupliquée rompt la contrainte unique « users_email_key »
+DETAIL:  La clé « (email)=(john@example.com) » existe déjà. in /home/diariniaina/projects/codeigniter/firststep/system/Database/Postgre/Connection.php:206
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler()
+#1 /home/diariniaina/projects/codeigniter/firststep/system/Database/Postgre/Connection.php(206): pg_query()
+#2 /home/diariniaina/projects/codeigniter/firststep/system/Database/BaseConnection.php(738): CodeIgniter\Database\Postgre\Connection->execute()
+#3 /home/diariniaina/projects/codeigniter/firststep/system/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+#4 /home/diariniaina/projects/codeigniter/firststep/system/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+#5 /home/diariniaina/projects/codeigniter/firststep/app/Controllers/ApiController.php(45): CodeIgniter\Database\BaseBuilder->insert()
+#6 /home/diariniaina/projects/codeigniter/firststep/system/CodeIgniter.php(933): App\Controllers\ApiController->create()
+#7 /home/diariniaina/projects/codeigniter/firststep/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#8 /home/diariniaina/projects/codeigniter/firststep/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#9 /home/diariniaina/projects/codeigniter/firststep/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 /home/diariniaina/projects/codeigniter/firststep/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#11 /home/diariniaina/projects/codeigniter/firststep/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#12 /home/diariniaina/projects/codeigniter/firststep/system/rewrite.php(44): require_once('...')
+#13 {main}
+CRITICAL - 2025-02-16 06:45:59 --> CodeIgniter\Database\Exceptions\DatabaseException: pg_query(): Query failed: ERREUR:  la valeur d'une clé dupliquée rompt la contrainte unique « users_email_key »
+DETAIL:  La clé « (email)=(john@example.com) » existe déjà.
+[Method: POST, Route: api]
+in SYSTEMPATH/Database/BaseConnection.php on line 692.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 2 APPPATH/Controllers/ApiController.php(45): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->create()
+ 4 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 5 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 6 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 8 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+ 9 SYSTEMPATH/rewrite.php(44): require_once('/home/diariniaina/projects/codeigniter/firststep/public/index.php')
+CRITICAL - 2025-02-16 06:45:59 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: pg_query(): Query failed: ERREUR:  la valeur d'une clé dupliquée rompt la contrainte unique « users_email_key »
+DETAIL:  La clé « (email)=(john@example.com) » existe déjà.
+in SYSTEMPATH/Database/Postgre/Connection.php on line 211.
+ 1 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\Postgre\Connection->execute()
+ 2 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 4 APPPATH/Controllers/ApiController.php(45): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->create()
+ 6 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/diariniaina/projects/codeigniter/firststep/public/index.php')
+CRITICAL - 2025-02-16 06:45:59 --> [Caused by] ErrorException: pg_query(): Query failed: ERREUR:  la valeur d'une clé dupliquée rompt la contrainte unique « users_email_key »
+DETAIL:  La clé « (email)=(john@example.com) » existe déjà.
+in SYSTEMPATH/Database/Postgre/Connection.php on line 206.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/Database/Postgre/Connection.php(206): pg_query()
+ 3 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\Postgre\Connection->execute()
+ 4 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 5 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 6 APPPATH/Controllers/ApiController.php(45): CodeIgniter\Database\BaseBuilder->insert()
+ 7 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->create()
+ 8 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+10 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+12 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+13 SYSTEMPATH/rewrite.php(44): require_once('/home/diariniaina/projects/codeigniter/firststep/public/index.php')
+ERROR - 2025-02-16 07:34:02 --> ErrorException: pg_query(): Query failed: ERREUR:  la colonne « test » n'existe pas
+LINE 1: SELECT * FROM users WHERE id = test
+                                       ^ in /home/diariniaina/projects/codeigniter/firststep/system/Database/Postgre/Connection.php:206
+Stack trace:
+#0 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler()
+#1 /home/diariniaina/projects/codeigniter/firststep/system/Database/Postgre/Connection.php(206): pg_query()
+#2 /home/diariniaina/projects/codeigniter/firststep/system/Database/BaseConnection.php(738): CodeIgniter\Database\Postgre\Connection->execute()
+#3 /home/diariniaina/projects/codeigniter/firststep/system/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+#4 /home/diariniaina/projects/codeigniter/firststep/app/Controllers/ApiController.php(26): CodeIgniter\Database\BaseConnection->query()
+#5 /home/diariniaina/projects/codeigniter/firststep/system/CodeIgniter.php(933): App\Controllers\ApiController->show()
+#6 /home/diariniaina/projects/codeigniter/firststep/system/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+#7 /home/diariniaina/projects/codeigniter/firststep/system/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+#8 /home/diariniaina/projects/codeigniter/firststep/system/Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 /home/diariniaina/projects/codeigniter/firststep/system/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+#10 /home/diariniaina/projects/codeigniter/firststep/public/index.php(56): CodeIgniter\Boot::bootWeb()
+#11 /home/diariniaina/projects/codeigniter/firststep/system/rewrite.php(44): require_once('...')
+#12 {main}
+CRITICAL - 2025-02-16 07:34:02 --> CodeIgniter\Database\Exceptions\DatabaseException: pg_query(): Query failed: ERREUR:  la colonne « test » n'existe pas
+LINE 1: SELECT * FROM users WHERE id = test
+                                       ^
+[Method: GET, Route: api/test]
+in SYSTEMPATH/Database/BaseConnection.php on line 692.
+ 1 APPPATH/Controllers/ApiController.php(26): CodeIgniter\Database\BaseConnection->query()
+ 2 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->show()
+ 3 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/diariniaina/projects/codeigniter/firststep/public/index.php')
+CRITICAL - 2025-02-16 07:34:02 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: pg_query(): Query failed: ERREUR:  la colonne « test » n'existe pas
+LINE 1: SELECT * FROM users WHERE id = test
+                                       ^
+in SYSTEMPATH/Database/Postgre/Connection.php on line 211.
+ 1 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\Postgre\Connection->execute()
+ 2 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 3 APPPATH/Controllers/ApiController.php(26): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->show()
+ 5 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 7 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 9 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+10 SYSTEMPATH/rewrite.php(44): require_once('/home/diariniaina/projects/codeigniter/firststep/public/index.php')
+CRITICAL - 2025-02-16 07:34:02 --> [Caused by] ErrorException: pg_query(): Query failed: ERREUR:  la colonne « test » n'existe pas
+LINE 1: SELECT * FROM users WHERE id = test
+                                       ^
+in SYSTEMPATH/Database/Postgre/Connection.php on line 206.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/Database/Postgre/Connection.php(206): pg_query()
+ 3 SYSTEMPATH/Database/BaseConnection.php(738): CodeIgniter\Database\Postgre\Connection->execute()
+ 4 SYSTEMPATH/Database/BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 5 APPPATH/Controllers/ApiController.php(26): CodeIgniter\Database\BaseConnection->query()
+ 6 SYSTEMPATH/CodeIgniter.php(933): App\Controllers\ApiController->show()
+ 7 SYSTEMPATH/CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/diariniaina/projects/codeigniter/firststep/public/index.php')
