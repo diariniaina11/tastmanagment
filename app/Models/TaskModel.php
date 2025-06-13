@@ -13,3 +13,5 @@ class TastModel extends Model
     protected $useTimestamps = true;
     protected $createdField = 'created_at';
 }
+
+ 
