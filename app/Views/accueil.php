@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, white 0%, #8D8A91FF 100%);
             min-height: 100vh;
         }
 
@@ -534,10 +534,6 @@
                 TaskMaster
             </div>
             <ul class="nav-menu">
-                <li><a href="#" class="nav-link active">Tableau de bord</a></li>
-                <li><a href="#" class="nav-link">Mes tâches</a></li>
-                <li><a href="#" class="nav-link">Calendrier</a></li>
-                <li><a href="#" class="nav-link">Paramètres</a></li>
             </ul>
             <div class="nav-stats">
                 <span class="nav-stat pending" id="nav-pending">0 En cours</span>

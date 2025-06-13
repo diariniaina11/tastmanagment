@@ -18,7 +18,22 @@ class Auth extends BaseController
 
     public function doLogin()
     {
-        return view('welcome_message');
+
+        
+        $userModel = new \App\Models\UserModel();
+        $email = $this->request->getPost('email');
+        $password = $this->request->getPost('pwd');
+
+        // Vérification des identifiants
+        $user = $userModel->where('email', $email)->first();
+        
+        if ($user && $password == $user['pwd']){
+            session()->set('logged_in', true);
+            session()->set('user_id', $user['id']);
+            
+            return redirect()->to('accueil')->withInput()->with('succes', 'Connexion réussie !');
+            
+        }
     }
 
 

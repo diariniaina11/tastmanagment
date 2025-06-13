@@ -17,3 +17,6 @@ $routes->get('/logout', 'Auth::logout');
 
 $routes->get('/inscription', 'Home::inscription');
 $routes->post('/inscription', 'Home::inscriptionPost');
+
+$routes->get('/accueil', 'Home::Accueil');
+
