@@ -14,4 +14,3 @@ class TastModel extends Model
     protected $createdField = 'created_at';
 }
 
- 

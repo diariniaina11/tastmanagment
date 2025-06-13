@@ -9,13 +9,12 @@ class AppInit extends Controller
 {
     public function index()
     {
-        // Connexion avec CodeIgniter (config/database.php)
+        // Connexion
         $db = Database::connect();
+        $forge = \Config\Database::forge();
 
-        // Crée la table si elle n'existe pas
+        // Création table USERS
         if (! $db->tableExists('users')) {
-            $forge = \Config\Database::forge();
-
             $fields = [
                 'id' => [
                     'type'           => 'INT',
@@ -25,15 +24,15 @@ class AppInit extends Controller
                 ],
                 'username' => [
                     'type'       => 'VARCHAR',
-                    'constraint' => '100',
+                    'constraint' => 100,
                 ],
                 'email' => [
                     'type'       => 'VARCHAR',
-                    'constraint' => '100',
+                    'constraint' => 100,
                 ],
                 'pwd' => [
                     'type'       => 'VARCHAR',
-                    'constraint' => '100',
+                    'constraint' => 255, // pour hacher le mot de passe
                 ],
                 'created_at' => [
                     'type' => 'DATETIME',
@@ -44,15 +43,13 @@ class AppInit extends Controller
             $forge->addField($fields);
             $forge->addKey('id', true);
             $forge->createTable('users');
-
             echo "Table 'users' créée avec succès.<br>";
         } else {
             echo "Table 'users' déjà existante.<br>";
         }
 
+        // Création table TASKS
         if (! $db->tableExists('tasks')) {
-            $forge = \Config\Database::forge();
-
             $fields = [
                 'id' => [
                     'type'           => 'INT',
@@ -60,45 +57,51 @@ class AppInit extends Controller
                     'unsigned'       => true,
                     'auto_increment' => true,
                 ],
-                'title' => [
+                'user_id' => [
                     'type'       => 'INT',
                     'constraint' => 11,
+                    'unsigned'   => true,
+                ],
+                'title' => [
+                    'type'       => 'VARCHAR',
+                    'constraint' => 150,
                 ],
                 'description' => [
-                    'type'       => 'VARCHAR',
-                    'constraint' => '100',
+                    'type'       => 'TEXT',
                 ],
                 'category' => [
                     'type'       => 'VARCHAR',
-                    'constraint' => '100',
+                    'constraint' => 100,
                 ],
                 'priority' => [
-                    'type' => 'DATETIME',
-                    'null' => true,
+                    'type'       => 'ENUM("low", "medium", "high")',
+                    'default'    => 'medium',
                 ],
                 'status' => [
                     'type'       => 'VARCHAR',
-                    'constraint' => '100',
+                    'constraint' => 100,
+                    'default'    => 'pending',
                 ],
                 'dueDate' => [
-                    'type'       => 'VARCHAR',
-                    'constraint' => '100',
+                    'type'       => 'DATE',
+                    'null'       => true,
                 ],
-                'createdAt' => [
-                    'type' => 'DATETIME',
-                    'null' => true,
+                'created_at' => [
+                    'type'       => 'DATETIME',
+                    'null'       => true,
                 ],
             ];
 
             $forge->addField($fields);
             $forge->addKey('id', true);
+            // Optionnel : ajouter clé étrangère plus tard avec migration ou manuellement
             $forge->createTable('tasks');
-
             echo "Table 'tasks' créée avec succès.<br>";
         } else {
             echo "Table 'tasks' déjà existante.<br>";
         }
 
-
+        // Redirection
+        return redirect()->to('/login')->with('info', 'Veuillez vous connecter pour accéder à cette page.');
     }
 }
