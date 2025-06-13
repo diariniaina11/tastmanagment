@@ -4,8 +4,53 @@ namespace App\Controllers;
 
 class Home extends BaseController
 {
-    public function index(): string
+    public function inscription()
     {
-        return view('welcome_message');
+        return view('inscription/inscription_view');
     }
+    public function inscriptionPost()
+    {
+        $userModel = new \App\Models\UserModel();
+        
+        $nom = $this->request->getPost('nom');
+
+        
+        $prenom = $this->request->getPost('prenom');
+
+        
+
+        $email = $this->request->getPost('email');
+        
+        $tel = $this->request->getPost('tel');
+        
+        
+        
+
+        $data = [
+            'is_organizer'    => $this->request->getPost('is_organizer'),
+            'nom'             => strtoupper($this->request->getPost('nom')),
+            'prenom'          => $this->request->getPost('prenom'),
+            'email'           => $this->request->getPost('email'),
+            'tel'             => $this->request->getPost('tel'),
+            'pwd'             => password_hash($this->request->getPost('pwd'), PASSWORD_BCRYPT),
+        ];
+        try {
+            $userModel->insert($data);
+            return redirect()->to('/inscription')->with('success', 'Inscription réussie LOGO');
+        } catch (DatabaseException $e) {
+            if (strpos($e->getMessage(), 'users_email_key') !== false) {
+                return redirect()->back()->withInput()->with('error', 'Email déjà utilisé.');
+            } elseif (strpos($e->getMessage(), 'users_tel_key') !== false) {
+                return redirect()->back()->withInput()->with('error', 'Numéro de téléphone déjà utilisé.');
+            } else {
+                return redirect()->back()->withInput()->with('error', 'Erreur inconnue. Veuillez réessayer.');
+            }
+        }
+    }
+
+    public function accueil()
+    {
+        return view('accueil');
+    }
+
 }

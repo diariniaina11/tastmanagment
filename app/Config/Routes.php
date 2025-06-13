@@ -5,12 +5,15 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'Home::index');
+$routes->get('/', 'AppInit::index');
 $routes->resource('api', ['controller' => 'ApiController']);
 
 
-$routes->get('/hello', 'Test::hello');
-$routes->get('/hello', 'Test::hello');
-$routes->get('/about', 'Test::about');
-$routes->get('/contact', 'Test::contact');
+$routes->get('/login', 'Auth::login');
+$routes->post('/login', 'Auth::doLogin');
+$routes->get('/logout', 'Auth::logout');
 
+
+
+$routes->get('/inscription', 'Home::inscription');
+$routes->post('/inscription', 'Home::inscriptionPost');
