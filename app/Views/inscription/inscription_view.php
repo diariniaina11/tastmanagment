@@ -39,8 +39,8 @@
             <form action="/inscription" method="post">
             
                     <div class="form-group">
-                        <label for="nom">Nom d'utilisateur</label>
-                        <input type="nom" id="nom" name="nom" class="form-control" placeholder="Veuillez choisir un nom d'utilisateur">
+                        <label for="username">Nom d'utilisateur</label>
+                        <input type="username" id="username" name="username" class="form-control" placeholder="Veuillez choisir un nom d'utilisateur">
                     </div>
 
                     <div class="form-group">
