@@ -2,11 +2,11 @@
 
 namespace App\Controllers;
 
-class Home extends BaseController
+class Auth extends BaseController
 {
     public function login()
     {
-        return view('welcome_message');
+        return view('login/login_view');
     }
 
 

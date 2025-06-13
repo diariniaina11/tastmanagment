@@ -12,7 +12,7 @@
 
     <!-- Toastr JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <link rel="stylesheet" href="<?= base_url('css/login.css')?>">
+    <link rel="stylesheet" href="<?= base_url('login.css')?>">
 
 </head>
 <body>

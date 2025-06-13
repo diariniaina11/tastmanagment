@@ -27,12 +27,9 @@ class Home extends BaseController
         
 
         $data = [
-            'is_organizer'    => $this->request->getPost('is_organizer'),
-            'nom'             => strtoupper($this->request->getPost('nom')),
-            'prenom'          => $this->request->getPost('prenom'),
+            'username'    => $this->request->getPost('username'),
             'email'           => $this->request->getPost('email'),
-            'tel'             => $this->request->getPost('tel'),
-            'pwd'             => password_hash($this->request->getPost('pwd'), PASSWORD_BCRYPT),
+            'pwd'          => $this->request->getPost('pwd'),
         ];
         try {
             $userModel->insert($data);
