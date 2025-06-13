@@ -548,7 +548,7 @@
         <div class="controls">
             <div class="controls-header">
                 <h1 class="controls-title">Gestionnaire de Tâches</h1>
-                <button class="btn-primary" onclick="openModal()">
+                <button type="button" name="new_task_btn" class="btn-primary" onclick="openModal()">
                     ➕ Nouvelle tâche
                 </button>
             </div>
@@ -559,15 +559,16 @@
                 <div id="overdue-list"></div>
             </div>
 
-            <div class="filters">
-                <input type="text" class="search-input" id="search-input" placeholder="Rechercher des tâches...">
-                <select class="filter-select" id="filter-select">
+            <!-- Formulaire de recherche et filtres -->
+            <form name="filter_form" class="filters" onsubmit="return false;">
+                <input type="text" name="search" class="search-input" id="search-input" placeholder="Rechercher des tâches...">
+                <select name="filter" class="filter-select" id="filter-select">
                     <option value="all">Toutes les tâches</option>
                     <option value="pending">En cours</option>
                     <option value="completed">Terminées</option>
                     <option value="overdue">En retard</option>
                 </select>
-            </div>
+            </form>
         </div>
 
         <!-- Grille des tâches -->
@@ -583,44 +584,53 @@
     <div id="task-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header" id="modal-title">Nouvelle tâche</div>
-            <div class="form-group">
-                <label class="form-label">Titre *</label>
-                <input type="text" class="form-input" id="task-title" placeholder="Titre de la tâche" required>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Description</label>
-                <textarea class="form-textarea" id="task-description" placeholder="Description de la tâche"></textarea>
-            </div>
-            <div class="form-row">
+            <form name="task_form" id="task-form" method="POST" action="/tasks">
+                <input type="hidden" name="task_id" id="task-id" value="">
+                <input type="hidden" name="action" id="form-action" value="create">
+                
                 <div class="form-group">
-                    <label class="form-label">Catégorie</label>
-                    <select class="form-select" id="task-category">
-                        <option value="Personnel">Personnel</option>
-                        <option value="Travail">Travail</option>
-                        <option value="Études">Études</option>
-                        <option value="Santé">Santé</option>
-                        <option value="Autre">Autre</option>
-                    </select>
+                    <label class="form-label" for="task-title">Titre *</label>
+                    <input type="text" name="title" class="form-input" id="task-title" placeholder="Titre de la tâche" required>
                 </div>
+                
                 <div class="form-group">
-                    <label class="form-label">Priorité</label>
-                    <select class="form-select" id="task-priority">
-                        <option value="low">Faible</option>
-                        <option value="medium">Moyenne</option>
-                        <option value="high">Élevée</option>
-                    </select>
+                    <label class="form-label" for="task-description">Description</label>
+                    <textarea name="description" class="form-textarea" id="task-description" placeholder="Description de la tâche"></textarea>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="form-label">Date d'échéance</label>
-                <input type="date" class="form-input" id="task-due-date">
-            </div>
-            <div class="modal-actions">
-                <button class="btn-secondary" onclick="closeModal()">Annuler</button>
-                <button class="btn-primary" onclick="saveTask()">
-                    <span id="save-btn-text">Créer</span>
-                </button>
-            </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="task-category">Catégorie</label>
+                        <select name="category" class="form-select" id="task-category">
+                            <option value="Personnel">Personnel</option>
+                            <option value="Travail">Travail</option>
+                            <option value="Études">Études</option>
+                            <option value="Santé">Santé</option>
+                            <option value="Autre">Autre</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="task-priority">Priorité</label>
+                        <select name="priority" class="form-select" id="task-priority">
+                            <option value="low">Faible</option>
+                            <option value="medium">Moyenne</option>
+                            <option value="high">Élevée</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="task-due-date">Date d'échéance</label>
+                    <input type="date" name="due_date" class="form-input" id="task-due-date">
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" name="cancel_btn" class="btn-secondary" onclick="closeModal()">Annuler</button>
+                    <button type="submit" name="submit_task" class="btn-primary">
+                        <span id="save-btn-text">Créer</span>
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -690,6 +700,9 @@
 
         function deleteTask(id) {
             if (confirm('Êtes-vous sûr de vouloir supprimer cette tâche ?')) {
+                // Envoyer la requête de suppression au serveur
+                submitDeleteTask(id);
+                
                 tasks = tasks.filter(task => task.id !== id);
                 renderTasks();
                 updateStats();
@@ -699,10 +712,56 @@
         function toggleTaskStatus(id) {
             const task = tasks.find(task => task.id === id);
             if (task) {
-                task.status = task.status === 'completed' ? 'pending' : 'completed';
+                const newStatus = task.status === 'completed' ? 'pending' : 'completed';
+                
+                // Envoyer la requête de mise à jour du statut au serveur
+                submitStatusUpdate(id, newStatus);
+                
+                task.status = newStatus;
                 renderTasks();
                 updateStats();
             }
+        }
+
+        // Fonctions d'envoi vers le serveur
+        function submitDeleteTask(taskId) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/tasks/delete';
+            form.style.display = 'none';
+            
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'task_id';
+            input.value = taskId;
+            
+            form.appendChild(input);
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+        }
+
+        function submitStatusUpdate(taskId, status) {
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/tasks/status';
+            form.style.display = 'none';
+            
+            const taskIdInput = document.createElement('input');
+            taskIdInput.type = 'hidden';
+            taskIdInput.name = 'task_id';
+            taskIdInput.value = taskId;
+            
+            const statusInput = document.createElement('input');
+            statusInput.type = 'hidden';
+            statusInput.name = 'status';
+            statusInput.value = status;
+            
+            form.appendChild(taskIdInput);
+            form.appendChild(statusInput);
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
         }
 
         // Fonctions de filtrage
@@ -777,9 +836,9 @@
                         <div class="task-header">
                             <h3 class="task-title ${task.status === 'completed' ? 'completed' : ''}">${task.title}</h3>
                             <div class="task-actions">
-                                ${task.status === 'pending' ? `<button class="btn-action btn-complete" onclick="toggleTaskStatus(${task.id})" title="Marquer comme terminé">✓</button>` : ''}
-                                <button class="btn-action btn-edit" onclick="editTask(${task.id})" title="Modifier">✏️</button>
-                                <button class="btn-action btn-delete" onclick="deleteTask(${task.id})" title="Supprimer">🗑️</button>
+                                ${task.status === 'pending' ? `<button type="button" name="complete_task_${task.id}" class="btn-action btn-complete" onclick="toggleTaskStatus(${task.id})" title="Marquer comme terminé">✓</button>` : ''}
+                                <button type="button" name="edit_task_${task.id}" class="btn-action btn-edit" onclick="editTask(${task.id})" title="Modifier">✏️</button>
+                                <button type="button" name="delete_task_${task.id}" class="btn-action btn-delete" onclick="deleteTask(${task.id})" title="Supprimer">🗑️</button>
                             </div>
                         </div>
                         ${task.description ? `<p class="task-description">${task.description}</p>` : ''}
@@ -828,56 +887,41 @@
             const modal = document.getElementById('task-modal');
             const modalTitle = document.getElementById('modal-title');
             const saveBtnText = document.getElementById('save-btn-text');
+            const form = document.getElementById('task-form');
 
             if (task) {
                 editingTaskId = task.id;
                 modalTitle.textContent = 'Modifier la tâche';
                 saveBtnText.textContent = 'Modifier';
                 
+                document.getElementById('task-id').value = task.id;
+                document.getElementById('form-action').value = 'update';
+                form.action = '/tasks/update';
+                
                 document.getElementById('task-title').value = task.title;
-                document.getElementById('task-description').value = task.description;
+                document.getElementById('task-description').value = task.description || '';
                 document.getElementById('task-category').value = task.category;
                 document.getElementById('task-priority').value = task.priority;
-                document.getElementById('task-due-date').value = task.dueDate;
+                document.getElementById('task-due-date').value = task.dueDate || '';
             } else {
                 editingTaskId = null;
                 modalTitle.textContent = 'Nouvelle tâche';
                 saveBtnText.textContent = 'Créer';
                 
-                document.getElementById('task-title').value = '';
-                document.getElementById('task-description').value = '';
-                document.getElementById('task-category').value = 'Personnel';
-                document.getElementById('task-priority').value = 'medium';
-                document.getElementById('task-due-date').value = '';
+                document.getElementById('task-id').value = '';
+                document.getElementById('form-action').value = 'create';
+                form.action = '/tasks';
+                
+                form.reset();
             }
 
             modal.classList.add('show');
         }
 
         function closeModal() {
-            document.getElementById('task-modal').classList.remove('show');
+            const modal = document.getElementById('task-modal');
+            modal.classList.remove('show');
             editingTaskId = null;
-        }
-
-        function saveTask() {
-            const title = document.getElementById('task-title').value.trim();
-            if (!title) return;
-
-            const taskData = {
-                title,
-                description: document.getElementById('task-description').value,
-                category: document.getElementById('task-category').value,
-                priority: document.getElementById('task-priority').value,
-                dueDate: document.getElementById('task-due-date').value
-            };
-
-            if (editingTaskId) {
-                updateTask(editingTaskId, taskData);
-            } else {
-                createTask(taskData);
-            }
-
-            closeModal();
         }
 
         function editTask(id) {
@@ -887,7 +931,32 @@
             }
         }
 
-        // Event listeners
+        // Gestionnaire de soumission du formulaire
+        document.getElementById('task-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const taskData = {
+                title: formData.get('title'),
+                description: formData.get('description'),
+                category: formData.get('category'),
+                priority: formData.get('priority'),
+                dueDate: formData.get('due_date')
+            };
+
+            if (editingTaskId) {
+                updateTask(editingTaskId, taskData);
+            } else {
+                createTask(taskData);
+            }
+
+            // Soumettre aussi au serveur
+            this.submit();
+            
+            closeModal();
+        });
+
+        // Gestionnaires d'événements pour les filtres
         document.getElementById('search-input').addEventListener('input', renderTasks);
         document.getElementById('filter-select').addEventListener('change', renderTasks);
 
@@ -898,8 +967,218 @@
             }
         });
 
+        // Fermer le modal avec la touche Échap
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
         // Initialiser l'application
-        initializeApp();
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+            
+            // Mettre à jour les statistiques toutes les minutes
+            setInterval(updateStats, 60000);
+        });
+
+        // Fonction pour exporter les tâches
+        function exportTasks() {
+            const dataStr = JSON.stringify(tasks, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'tasks_export.json';
+            link.click();
+            
+            URL.revokeObjectURL(url);
+        }
+
+        // Fonction pour importer les tâches
+        function importTasks(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedTasks = JSON.parse(e.target.result);
+                    if (Array.isArray(importedTasks)) {
+                        tasks = importedTasks;
+                        renderTasks();
+                        updateStats();
+                        alert('Tâches importées avec succès !');
+                    } else {
+                        alert('Format de fichier invalide.');
+                    }
+                } catch (error) {
+                    alert('Erreur lors de l\'importation : ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // Fonction pour vider toutes les tâches terminées
+        function clearCompletedTasks() {
+            if (confirm('Êtes-vous sûr de vouloir supprimer toutes les tâches terminées ?')) {
+                tasks = tasks.filter(task => task.status !== 'completed');
+                renderTasks();
+                updateStats();
+            }
+        }
+
+        // Fonction pour marquer toutes les tâches comme terminées
+        function completeAllTasks() {
+            if (confirm('Êtes-vous sûr de vouloir marquer toutes les tâches en cours comme terminées ?')) {
+                tasks.forEach(task => {
+                    if (task.status === 'pending') {
+                        task.status = 'completed';
+                    }
+                });
+                renderTasks();
+                updateStats();
+            }
+        }
+
+        // Raccourcis clavier
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+N pour nouvelle tâche
+            if (e.ctrlKey && e.key === 'n') {
+                e.preventDefault();
+                openModal();
+            }
+            
+            // Ctrl+F pour focus sur la recherche
+            if (e.ctrlKey && e.key === 'f') {
+                e.preventDefault();
+                document.getElementById('search-input').focus();
+            }
+        });
+
+        // Notifications du navigateur (si supportées)
+        function requestNotificationPermission() {
+            if ('Notification' in window && Notification.permission === 'default') {
+                Notification.requestPermission();
+            }
+        }
+
+        function showNotification(title, body) {
+            if ('Notification' in window && Notification.permission === 'granted') {
+                new Notification(title, {
+                    body: body,
+                    icon: '/favicon.ico'
+                });
+            }
+        }
+
+        // Vérifier les tâches en retard toutes les heures
+        function checkOverdueTasks() {
+            const overdueTasks = getOverdueTasks();
+            if (overdueTasks.length > 0) {
+                showNotification(
+                    'Tâches en retard !',
+                    `Vous avez ${overdueTasks.length} tâche${overdueTasks.length > 1 ? 's' : ''} en retard.`
+                );
+            }
+        }
+
+        // Initialiser les notifications et vérifications périodiques
+        requestNotificationPermission();
+        setInterval(checkOverdueTasks, 3600000); // Toutes les heures
+
+        // Sauvegarde automatique dans le localStorage (pour la démo)
+        function saveToLocalStorage() {
+            try {
+                localStorage.setItem('taskmaster_tasks', JSON.stringify(tasks));
+            } catch (error) {
+                console.warn('Impossible de sauvegarder dans le localStorage:', error);
+            }
+        }
+
+        function loadFromLocalStorage() {
+            try {
+                const saved = localStorage.getItem('taskmaster_tasks');
+                if (saved) {
+                    const parsedTasks = JSON.parse(saved);
+                    if (Array.isArray(parsedTasks)) {
+                        tasks = parsedTasks;
+                        return true;
+                    }
+                }
+            } catch (error) {
+                console.warn('Impossible de charger depuis le localStorage:', error);
+            }
+            return false;
+        }
+
+        // Modifier la fonction d'initialisation pour utiliser le localStorage
+        function initializeApp() {
+            if (!loadFromLocalStorage()) {
+                // Données d'exemple si pas de sauvegarde
+                tasks = [
+                    {
+                        id: 1,
+                        title: 'Finir le rapport mensuel',
+                        description: 'Compiler les données et rédiger le rapport final',
+                        category: 'Travail',
+                        priority: 'high',
+                        status: 'pending',
+                        dueDate: '2025-06-15',
+                        createdAt: new Date().toISOString()
+                    },
+                    {
+                        id: 2,
+                        title: 'Faire les courses',
+                        description: 'Acheter les produits pour la semaine',
+                        category: 'Personnel',
+                        priority: 'medium',
+                        status: 'pending',
+                        dueDate: '2025-06-14',
+                        createdAt: new Date().toISOString()
+                    },
+                    {
+                        id: 3,
+                        title: 'Rendez-vous médecin',
+                        description: 'Consultation de routine',
+                        category: 'Santé',
+                        priority: 'high',
+                        status: 'completed',
+                        dueDate: '2025-06-12',
+                        createdAt: new Date().toISOString()
+                    }
+                ];
+            }
+            renderTasks();
+            updateStats();
+        }
+
+        // Sauvegarder à chaque modification
+        const originalCreateTask = createTask;
+        const originalUpdateTask = updateTask;
+        const originalDeleteTask = deleteTask;
+        const originalToggleTaskStatus = toggleTaskStatus;
+
+        createTask = function(taskData) {
+            originalCreateTask(taskData);
+            saveToLocalStorage();
+        };
+
+        updateTask = function(id, taskData) {
+            originalUpdateTask(id, taskData);
+            saveToLocalStorage();
+        };
+
+        deleteTask = function(id) {
+            originalDeleteTask(id);
+            saveToLocalStorage();
+        };
+
+        toggleTaskStatus = function(id) {
+            originalToggleTaskStatus(id);
+            saveToLocalStorage();
+        };
     </script>
 </body>
 </html>

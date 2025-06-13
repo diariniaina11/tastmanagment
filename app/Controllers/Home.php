@@ -12,20 +12,6 @@ class Home extends BaseController
     {
         $userModel = new \App\Models\UserModel();
         
-        $nom = $this->request->getPost('nom');
-
-        
-        $prenom = $this->request->getPost('prenom');
-
-        
-
-        $email = $this->request->getPost('email');
-        
-        $tel = $this->request->getPost('tel');
-        
-        
-        
-
         $data = [
             'username'    => $this->request->getPost('username'),
             'email'           => $this->request->getPost('email'),
@@ -51,8 +37,9 @@ class Home extends BaseController
         if (!session()->get('logged_in')) {
             return redirect()->to('/login')->with('error', 'Veuillez vous connecter pour accéder à cette page.');
         }
-        
-        return view('accueil');
+        $tasks=new \App\Models\TaskModel();
+        $data['tasks'] = $tasks->where('user_id', session()->get('user_id'))->findAll();
+        return view('accueil', $data);
     }
 
 }
