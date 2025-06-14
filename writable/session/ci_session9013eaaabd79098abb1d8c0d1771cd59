@@ -1,0 +1,1 @@
+__ci_last_regenerate|i:1749811118;_ci_previous_url|s:39:"http://localhost:8080/index.php/accueil";logged_in|b:1;user_id|s:1:"1";_ci_old_input|a:2:{s:3:"get";a:0:{}s:4:"post";a:2:{s:5:"email";s:15:"user1@gmail.com";s:3:"pwd";s:5:"user1";}}__ci_vars|a:2:{s:13:"_ci_old_input";s:3:"old";s:6:"succes";s:3:"old";}succes|s:20:"Connexion réussie !";

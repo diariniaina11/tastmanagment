@@ -57,7 +57,8 @@ class Home extends BaseController
                 'category'    => $this->request->getPost('category'),
                 'priority'    => $this->request->getPost('priority'),
                 'status'      => 'en cours', // ou autre valeur par défaut
-                'due_date'    => $this->request->getPost('due_date'),
+                'dueDate'    => $this->request->getPost('due_date'),
+                
                 'created_at'  => date('Y-m-d H:i:s'),
             ];
 

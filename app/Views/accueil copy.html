@@ -4,14 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestionnaire de Tâches</title>
-
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
-
-    <!-- jQuery (requis pour Toastr) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-    <!-- Toastr JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -643,32 +635,43 @@
     </div>
 
     <script>
-        // Récupération des données PHP
-        let tasks = <?php echo json_encode($tasks ?? []); ?>;
+        let tasks = [];
         let editingTaskId = null;
-        console.log(tasks[0].priority);
-        
 
-        // Convertir les données PHP au format JavaScript attendu
-        function convertPhpTasksToJs(phpTasks) {
-            return phpTasks.map(task => ({
-                id: parseInt(task.id),
-                title: task.title || task.titre,
-                description: task.description || task.description,
-                category: task.category || task.categorie || 'Autre',
-                priority: task.priority || task.priorite || 'medium',
-                status: task.status || task.statut || 'en cours',
-                dueDate: task.due_date || task.date_echeance,
-                createdAt: task.created_at || task.date_creation || new Date().toISOString()
-            }));
-        }
-        console.log(tasks[0].priority);
-
-
-        // Initialiser l'application
+        // Initialiser avec des tâches d'exemple
         function initializeApp() {
-            // Convertir les données PHP
-            tasks = convertPhpTasksToJs(tasks);
+            tasks = [
+                {
+                    id: 1,
+                    title: 'Finir le rapport mensuel',
+                    description: 'Compiler les données et rédiger le rapport final',
+                    category: 'Travail',
+                    priority: 'high',
+                    status: 'pending',
+                    dueDate: '2025-06-15',
+                    createdAt: new Date().toISOString()
+                },
+                {
+                    id: 2,
+                    title: 'Faire les courses',
+                    description: 'Acheter les produits pour la semaine',
+                    category: 'Personnel',
+                    priority: 'medium',
+                    status: 'pending',
+                    dueDate: '2025-06-14',
+                    createdAt: new Date().toISOString()
+                },
+                {
+                    id: 3,
+                    title: 'Rendez-vous médecin',
+                    description: 'Consultation de routine',
+                    category: 'Santé',
+                    priority: 'high',
+                    status: 'completed',
+                    dueDate: '2025-06-12',
+                    createdAt: new Date().toISOString()
+                }
+            ];
             renderTasks();
             updateStats();
         }
@@ -678,7 +681,7 @@
             const newTask = {
                 id: Date.now(),
                 ...taskData,
-                status: 'en cours',
+                status: 'pending',
                 createdAt: new Date().toISOString()
             };
             tasks.push(newTask);
@@ -709,7 +712,7 @@
         function toggleTaskStatus(id) {
             const task = tasks.find(task => task.id === id);
             if (task) {
-                const newStatus = task.status === 'terminée' ? 'en cours' : 'terminée';
+                const newStatus = task.status === 'completed' ? 'pending' : 'completed';
                 
                 // Envoyer la requête de mise à jour du statut au serveur
                 submitStatusUpdate(id, newStatus);
@@ -724,7 +727,7 @@
         function submitDeleteTask(taskId) {
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = '<?php echo base_url('/delete'); ?>';
+            form.action = '/tasks/delete';
             form.style.display = 'none';
             
             const input = document.createElement('input');
@@ -741,7 +744,7 @@
         function submitStatusUpdate(taskId, status) {
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = '<?php echo base_url('tasks/status'); ?>';
+            form.action = '/tasks/status';
             form.style.display = 'none';
             
             const taskIdInput = document.createElement('input');
@@ -769,19 +772,19 @@
 
             return tasks.filter(task => {
                 const matchesSearch = task.title.toLowerCase().includes(searchTerm) ||
-                                    (task.description && task.description.toLowerCase().includes(searchTerm)) ||
+                                    task.description.toLowerCase().includes(searchTerm) ||
                                     task.category.toLowerCase().includes(searchTerm);
 
                 let matchesFilter = true;
                 switch (filter) {
                     case 'pending':
-                        matchesFilter = task.status === 'en cours';
+                        matchesFilter = task.status === 'pending';
                         break;
                     case 'completed':
-                        matchesFilter = task.status === 'terminée';
+                        matchesFilter = task.status === 'completed';
                         break;
                     case 'overdue':
-                        matchesFilter = task.status === 'en retard' && task.dueDate && task.dueDate < today;
+                        matchesFilter = task.status === 'pending' && task.dueDate < today;
                         break;
                 }
 
@@ -792,12 +795,11 @@
         function getOverdueTasks() {
             const today = new Date().toISOString().split('T')[0];
             return tasks.filter(task => 
-                task.status === 'en cours' && 
+                task.status === 'pending' && 
                 task.dueDate && 
                 task.dueDate < today
             );
         }
-
 
         // Fonctions de rendu
         function renderTasks() {
@@ -826,22 +828,22 @@
             });
 
             tasksGrid.innerHTML = sortedTasks.map(task => {
-                const isOverdue = task.status === 'en cours' && task.dueDate && task.dueDate < new Date().toISOString().split('T')[0];
+                const isOverdue = task.status === 'pending' && task.dueDate && task.dueDate < new Date().toISOString().split('T')[0];
                 const priorityLabels = { high: 'Élevée', medium: 'Moyenne', low: 'Faible' };
                 
                 return `
-                    <div class="task-card ${isOverdue ? 'en retard' : ''} ${task.status === 'terminée' ? 'completed' : ''}">
+                    <div class="task-card ${isOverdue ? 'overdue' : ''} ${task.status === 'completed' ? 'completed' : ''}">
                         <div class="task-header">
-                            <h3 class="task-title ${task.status === 'terminée' ? 'completed' : ''}">${task.title}</h3>
+                            <h3 class="task-title ${task.status === 'completed' ? 'completed' : ''}">${task.title}</h3>
                             <div class="task-actions">
-                                ${task.status !== 'terminée' ? `<button type="button" name="complete_task_${task.id}" class="btn-action btn-complete" onclick="toggleTaskStatus(${task.id})" title="Marquer comme terminé">✓</button>` : ''}
+                                ${task.status === 'pending' ? `<button type="button" name="complete_task_${task.id}" class="btn-action btn-complete" onclick="toggleTaskStatus(${task.id})" title="Marquer comme terminé">✓</button>` : ''}
                                 <button type="button" name="edit_task_${task.id}" class="btn-action btn-edit" onclick="editTask(${task.id})" title="Modifier">✏️</button>
                                 <button type="button" name="delete_task_${task.id}" class="btn-action btn-delete" onclick="deleteTask(${task.id})" title="Supprimer">🗑️</button>
                             </div>
                         </div>
                         ${task.description ? `<p class="task-description">${task.description}</p>` : ''}
                         <div class="task-meta">
-                            <span class="task-priority priority-${task.priority}">${(task.priority=='low'? 'faible':(task.priority=='medium')? 'moyenne':'élévée' )}</span>
+                            <span class="task-priority priority-${task.priority}">${priorityLabels[task.priority]}</span>
                             <span class="task-category">${task.category}</span>
                             ${task.dueDate ? `<span class="task-date">${new Date(task.dueDate).toLocaleDateString('fr-FR')}</span>` : ''}
                         </div>
@@ -853,8 +855,8 @@
         }
 
         function updateStats() {
-            const pendingTasks = tasks.filter(t => t.status === 'en attente').length;
-            const completedTasks = tasks.filter(t => t.status === 'terminée').length;
+            const pendingTasks = tasks.filter(t => t.status === 'pending').length;
+            const completedTasks = tasks.filter(t => t.status === 'completed').length;
             const overdueTasks = getOverdueTasks().length;
 
             document.getElementById('nav-pending').textContent = `${pendingTasks} En cours`;
@@ -894,7 +896,7 @@
                 
                 document.getElementById('task-id').value = task.id;
                 document.getElementById('form-action').value = 'update';
-                form.action = '<?php echo base_url('tasks/update'); ?>';
+                form.action = '/tasks/update';
                 
                 document.getElementById('task-title').value = task.title;
                 document.getElementById('task-description').value = task.description || '';
@@ -908,20 +910,18 @@
                 
                 document.getElementById('task-id').value = '';
                 document.getElementById('form-action').value = 'create';
-                form.action = '/retrieving_new_task';
+                form.action = '/tasks';
                 
                 form.reset();
             }
 
             modal.classList.add('show');
-            document.getElementById('task-title').focus();
         }
 
         function closeModal() {
             const modal = document.getElementById('task-modal');
             modal.classList.remove('show');
             editingTaskId = null;
-            document.getElementById('task-form').reset();
         }
 
         function editTask(id) {
@@ -931,7 +931,7 @@
             }
         }
 
-        // Gestionnaire d'événements pour le formulaire
+        // Gestionnaire de soumission du formulaire
         document.getElementById('task-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -950,13 +950,13 @@
                 createTask(taskData);
             }
 
-            // Soumettre le formulaire au serveur
+            // Soumettre aussi au serveur
             this.submit();
             
             closeModal();
         });
 
-        // Gestionnaires d'événements pour la recherche et les filtres
+        // Gestionnaires d'événements pour les filtres
         document.getElementById('search-input').addEventListener('input', renderTasks);
         document.getElementById('filter-select').addEventListener('change', renderTasks);
 
@@ -974,65 +974,44 @@
             }
         });
 
-        // Initialiser l'application au chargement de la page
+        // Initialiser l'application
         document.addEventListener('DOMContentLoaded', function() {
             initializeApp();
             
-            // Vérifier les tâches en retard toutes les minutes
-            setInterval(updateOverdueNotification, 60000);
+            // Mettre à jour les statistiques toutes les minutes
+            setInterval(updateStats, 60000);
         });
 
-        // Fonctions utilitaires
-        function formatDate(dateString) {
-            if (!dateString) return '';
-            const date = new Date(dateString);
-            return date.toLocaleDateString('fr-FR', {
-                day: '2-digit',
-                month: '2-digit',
-                year: 'numeric'
-            });
-        }
-
-        function isTaskOverdue(task) {
-            if (!task.dueDate || task.status === 'terminée') return false;
-            
-            const today = new Date();
-            const dueDate = new Date(task.dueDate);
-            
-            // Réinitialiser les heures pour comparer seulement les dates
-            today.setHours(0, 0, 0, 0);
-            dueDate.setHours(0, 0, 0, 0);
-            
-            return dueDate < today;
-        }
-
-        // Fonction pour exporter les tâches (bonus)
+        // Fonction pour exporter les tâches
         function exportTasks() {
             const dataStr = JSON.stringify(tasks, null, 2);
-            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
             
             const link = document.createElement('a');
-            link.href = URL.createObjectURL(dataBlob);
-            link.download = 'mes_taches_' + new Date().toISOString().split('T')[0] + '.json';
+            link.href = url;
+            link.download = 'tasks_export.json';
             link.click();
+            
+            URL.revokeObjectURL(url);
         }
 
-        // Fonction pour importer des tâches (bonus)
+        // Fonction pour importer les tâches
         function importTasks(event) {
             const file = event.target.files[0];
             if (!file) return;
-            
+
             const reader = new FileReader();
             reader.onload = function(e) {
                 try {
                     const importedTasks = JSON.parse(e.target.result);
                     if (Array.isArray(importedTasks)) {
-                        tasks = [...tasks, ...importedTasks];
+                        tasks = importedTasks;
                         renderTasks();
                         updateStats();
                         alert('Tâches importées avec succès !');
                     } else {
-                        alert('Format de fichier invalide');
+                        alert('Format de fichier invalide.');
                     }
                 } catch (error) {
                     alert('Erreur lors de l\'importation : ' + error.message);
@@ -1041,7 +1020,44 @@
             reader.readAsText(file);
         }
 
-        // Fonction de notification du navigateur (bonus)
+        // Fonction pour vider toutes les tâches terminées
+        function clearCompletedTasks() {
+            if (confirm('Êtes-vous sûr de vouloir supprimer toutes les tâches terminées ?')) {
+                tasks = tasks.filter(task => task.status !== 'completed');
+                renderTasks();
+                updateStats();
+            }
+        }
+
+        // Fonction pour marquer toutes les tâches comme terminées
+        function completeAllTasks() {
+            if (confirm('Êtes-vous sûr de vouloir marquer toutes les tâches en cours comme terminées ?')) {
+                tasks.forEach(task => {
+                    if (task.status === 'pending') {
+                        task.status = 'completed';
+                    }
+                });
+                renderTasks();
+                updateStats();
+            }
+        }
+
+        // Raccourcis clavier
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+N pour nouvelle tâche
+            if (e.ctrlKey && e.key === 'n') {
+                e.preventDefault();
+                openModal();
+            }
+            
+            // Ctrl+F pour focus sur la recherche
+            if (e.ctrlKey && e.key === 'f') {
+                e.preventDefault();
+                document.getElementById('search-input').focus();
+            }
+        });
+
+        // Notifications du navigateur (si supportées)
         function requestNotificationPermission() {
             if ('Notification' in window && Notification.permission === 'default') {
                 Notification.requestPermission();
@@ -1057,80 +1073,112 @@
             }
         }
 
-        // Vérifier les tâches qui arrivent à échéance
-        function checkUpcomingDeadlines() {
-            const tomorrow = new Date();
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            const tomorrowStr = tomorrow.toISOString().split('T')[0];
-            
-            const upcomingTasks = tasks.filter(task => 
-                task.status === 'en cours' && 
-                task.dueDate === tomorrowStr
-            );
-            
-            if (upcomingTasks.length > 0) {
-                const taskNames = upcomingTasks.map(t => t.title).join(', ');
+        // Vérifier les tâches en retard toutes les heures
+        function checkOverdueTasks() {
+            const overdueTasks = getOverdueTasks();
+            if (overdueTasks.length > 0) {
                 showNotification(
-                    'Tâches à échéance demain',
-                    `${upcomingTasks.length} tâche(s) : ${taskNames}`
+                    'Tâches en retard !',
+                    `Vous avez ${overdueTasks.length} tâche${overdueTasks.length > 1 ? 's' : ''} en retard.`
                 );
             }
         }
 
-        // Initialiser les notifications
+        // Initialiser les notifications et vérifications périodiques
         requestNotificationPermission();
-        
-        // Vérifier les échéances au chargement et toutes les heures
-        setTimeout(checkUpcomingDeadlines, 2000);
-        setInterval(checkUpcomingDeadlines, 3600000); // Toutes les heures
-    </script>
-    <script>
-        toastr.options = {
-            "closeButton": true, // Affiche un bouton pour fermer
-            "debug": false,
-            "newestOnTop": true,
-            "progressBar": true, // Barre de progression
-            "positionClass": "toast-bottom-right", // Position
-            "preventDuplicates": true,
-            "onclick": null,
-            "showDuration": "300", // Durée d'apparition (ms)
-            "hideDuration": "1000", // Durée de disparition (ms)
-            "timeOut": "5000", // Temps d'affichage (ms)
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn", // Animation d'entrée
-            "hideMethod": "fadeOut" // Animation de sortie
+        setInterval(checkOverdueTasks, 3600000); // Toutes les heures
+
+        // Sauvegarde automatique dans le localStorage (pour la démo)
+        function saveToLocalStorage() {
+            try {
+                localStorage.setItem('taskmaster_tasks', JSON.stringify(tasks));
+            } catch (error) {
+                console.warn('Impossible de sauvegarder dans le localStorage:', error);
+            }
+        }
+
+        function loadFromLocalStorage() {
+            try {
+                const saved = localStorage.getItem('taskmaster_tasks');
+                if (saved) {
+                    const parsedTasks = JSON.parse(saved);
+                    if (Array.isArray(parsedTasks)) {
+                        tasks = parsedTasks;
+                        return true;
+                    }
+                }
+            } catch (error) {
+                console.warn('Impossible de charger depuis le localStorage:', error);
+            }
+            return false;
+        }
+
+        // Modifier la fonction d'initialisation pour utiliser le localStorage
+        function initializeApp() {
+            if (!loadFromLocalStorage()) {
+                // Données d'exemple si pas de sauvegarde
+                tasks = [
+                    {
+                        id: 1,
+                        title: 'Finir le rapport mensuel',
+                        description: 'Compiler les données et rédiger le rapport final',
+                        category: 'Travail',
+                        priority: 'high',
+                        status: 'pending',
+                        dueDate: '2025-06-15',
+                        createdAt: new Date().toISOString()
+                    },
+                    {
+                        id: 2,
+                        title: 'Faire les courses',
+                        description: 'Acheter les produits pour la semaine',
+                        category: 'Personnel',
+                        priority: 'medium',
+                        status: 'pending',
+                        dueDate: '2025-06-14',
+                        createdAt: new Date().toISOString()
+                    },
+                    {
+                        id: 3,
+                        title: 'Rendez-vous médecin',
+                        description: 'Consultation de routine',
+                        category: 'Santé',
+                        priority: 'high',
+                        status: 'completed',
+                        dueDate: '2025-06-12',
+                        createdAt: new Date().toISOString()
+                    }
+                ];
+            }
+            renderTasks();
+            updateStats();
+        }
+
+        // Sauvegarder à chaque modification
+        const originalCreateTask = createTask;
+        const originalUpdateTask = updateTask;
+        const originalDeleteTask = deleteTask;
+        const originalToggleTaskStatus = toggleTaskStatus;
+
+        createTask = function(taskData) {
+            originalCreateTask(taskData);
+            saveToLocalStorage();
         };
-        function toast(){
-            toastrerror()
-            toastrsuccess()
-        }
-        function toastrsuccess() {
-            toastr.success('Compte créé avec succè', 'Bravo 🎉', {
-                timeOut: 10000,
-                closeButton: true,
-                progressBar: true,
-                positionClass: 'toast-top-right'
-            });
-        }
-    
-        function toastrerror() {
-            toastr.error('Il faut ... !', 'Bravo 🎉', {
-                timeOut: 10000,
-                closeButton: true,
-                progressBar: true,
-                positionClass: 'toast-top-right'
-            });  
-        }
-        
-        <?php if (session()->getFlashdata('success')) : ?>
-            toastr.success("<?= session()->getFlashdata('success') ?>", 'Succès 🎉');
-        <?php elseif (session()->getFlashdata('error')) : ?>
-            toastr.error("<?= session()->getFlashdata('error') ?>", 'Erreur ❌');
-        <?php elseif (session()->getFlashdata('warning')) : ?>
-            toastr.warning("<?= session()->getFlashdata('warning') ?>", 'Avertissement ⚠️');
-        <?php endif; ?>
+
+        updateTask = function(id, taskData) {
+            originalUpdateTask(id, taskData);
+            saveToLocalStorage();
+        };
+
+        deleteTask = function(id) {
+            originalDeleteTask(id);
+            saveToLocalStorage();
+        };
+
+        toggleTaskStatus = function(id) {
+            originalToggleTaskStatus(id);
+            saveToLocalStorage();
+        };
     </script>
 </body>
 </html>

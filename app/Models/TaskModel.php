@@ -3,9 +3,9 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class TastModel extends Model
+class TaskModel extends Model
 {
-    protected $table = 'event_data';
+    protected $table = 'tasks';
     protected $primaryKey = 'id';
     protected $allowedFields = [
         'user_id' ,'title', 'description', 'category', 'priority', 'status', 'dueDate'
@@ -13,4 +13,3 @@ class TastModel extends Model
     protected $useTimestamps = true;
     protected $createdField = 'created_at';
 }
-
