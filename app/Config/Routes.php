@@ -17,6 +17,9 @@ $routes->get('/logout', 'Auth::logout');
 
 $routes->get('/inscription', 'Home::inscription');
 $routes->post('/inscription', 'Home::inscriptionPost');
+$routes->post('/retrieving_new_task', 'Home::retrieving_new_task');
+$routes->post('/delete', 'Home::delete_task');
+$routes->post('/tasks/status', 'Home::change_task_status');
 
 $routes->get('/accueil', 'Home::Accueil');
 
